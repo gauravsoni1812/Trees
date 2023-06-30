@@ -1,0 +1,21 @@
+https://practice.geeksforgeeks.org/problems/level-order-traversal/0
+
+ vector<int> levelOrder(Node* node)
+    {
+      //Your code here
+      vector<int> ans;
+      queue<Node*>pendingNodes;
+      pendingNodes.push(node);
+      while(!pendingNodes.empty()){
+        Node* rootNode=pendingNodes.front();
+          pendingNodes.pop();
+          ans.push_back(rootNode->data);
+          if(rootNode->left!=NULL){
+             pendingNodes.push (rootNode->left);
+          }
+          if(rootNode->right!=NULL){
+             pendingNodes.push (rootNode->right);
+          }
+      }
+      return ans;
+    }
