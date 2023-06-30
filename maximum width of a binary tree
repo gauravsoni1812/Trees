@@ -1,0 +1,30 @@
+https://practice.geeksforgeeks.org/problems/maximum-width-of-tree/0
+
+int getMaxWidth(Node *root)
+{
+    // Your code here
+    // level order traversal
+    unordered_map<int, int> ourmap;
+    queue<pair<Node *, int>> q;
+    q.push({root, 0});
+    while (!q.empty())
+    {
+        pair<Node*, int> p = q.front();
+        q.pop();
+        ourmap[p.second]++;
+        if (p.first->left != NULL)
+        {
+            q.push({p.first->left, p.second + 1});
+        }
+        if (p.first->right != NULL)
+        {
+            q.push({p.first->right, p.second + 1});
+        }
+    }
+    int ans = 0;
+    for (auto it = ourmap.begin(); it != ourmap.end(); it++)
+    {
+        ans = max(ans, it->second);
+    }
+    return ans;
+}
