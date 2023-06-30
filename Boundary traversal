@@ -1,0 +1,87 @@
+https://practice.geeksforgeeks.org/problems/boundary-traversal-of-binary-tree/1
+
+bool isleaf(Node *root)
+{
+    return !root->left && !root->right;
+}
+void addleft(Node *root, vector<int> &ans)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    Node *curr = root;
+    while (curr != NULL)
+    {
+        if (!isleaf(curr))
+        {
+            ans.push_back(curr->data);
+        }
+        if (curr->left)
+        {
+            curr = curr->left;
+        }
+        else
+        {
+            curr = curr->right;
+        }
+    }
+}
+void addright(Node *root, vector<int> &ans)
+{
+    if (root == NULL)
+    {
+        return;
+    }
+    vector<int> res;
+    Node *curr = root;
+    while (curr != NULL)
+    {
+        if (!isleaf(curr))
+        {
+            res.push_back(curr->data);
+        }
+        if (curr->right)
+        {
+            curr = curr->right;
+        }
+        else
+        {
+            curr = curr->left;
+        }
+    }
+    for (int i = res.size() - 1; i >= 0; i--)
+    {
+        ans.push_back(res[i]);
+    }
+}
+void addleaves(Node *root, vector<int> &ans)
+{
+    if (!root)
+        return;
+    if (root->left == NULL && root->right == NULL)
+    {
+        ans.push_back(root->data);
+        return;
+    }
+    addleaves(root->left, ans);
+    addleaves(root->right, ans);
+}
+vector<int> boundary(Node *root)
+{
+    // Your code here
+    vector<int> ans;
+    if(isleaf(root)){
+        ans.push_back(root->data);
+        return ans;  
+    }
+    if (root == NULL)
+    {
+        return ans;
+    }
+    ans.push_back(root->data);
+    addleft(root->left, ans);
+    addleaves(root,ans );
+    addright(root->right, ans);
+    return ans;
+}
