@@ -1,0 +1,48 @@
+https://practice.geeksforgeeks.org/problems/preorder-traversal/0
+
+iterative
+https://practice.geeksforgeeks.org/problems/preorder-traversal-iterative/0
+
+void helper(Node* root,vector<int> &ans){
+    if(root==NULL){
+        return;
+    }
+    if(root->left==NULL&&root->right==NULL){
+       ans.push_back(root->data);
+       return;
+    }
+    ans.push_back(root->data);
+    helper(root->left, ans);
+    helper(root->right,ans);
+}
+
+vector <int> preorder(Node* root)
+{
+  // Your code here
+ vector<int> ans;
+ helper(root,ans);
+ return ans;
+}
+
+
+
+iterative
+ vector<int> preOrder(Node* root)
+    {
+        //code here
+      vector<int>ans;
+      stack<Node*>st;
+      st.push(root);
+      while(!st.empty()){
+          Node*a=st.top();
+          st.pop();
+          ans.push_back(a->data);
+          if(a->right!=NULL){
+              st.push(a->right);
+          }
+              if(a->left!=NULL){
+              st.push(a->left);
+          }
+      }
+      return ans;
+    }
