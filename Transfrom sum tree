@@ -1,0 +1,20 @@
+https://practice.geeksforgeeks.org/problems/transform-to-sum-tree/1
+
+  
+    int solve(Node *root){
+          if(root==NULL){
+            return 0;
+            
+        }
+        int leftans=solve(root->left);
+        int rightans=solve(root->right);
+        int n=root->data;
+        root->data=leftans+rightans;
+        return n+leftans+rightans;
+    }
+    void toSumTree(Node *node)
+    {
+        // Your code here
+        solve(node);
+      
+    }
