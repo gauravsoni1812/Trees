@@ -1,0 +1,21 @@
+https://practice.geeksforgeeks.org/problems/lowest-common-ancestor-in-a-binary-tree/1?page=1&sprint=c6eaf80088f7f43520895b309e50cefe&sortBy=submissions
+
+    Node* lca(Node* root ,int n1 ,int n2 )
+    {
+       //Your code here 
+       if(root==NULL || root->data == n1 || root->data==n2){
+          return root;   
+       }
+       Node*lans =lca(root->left, n1,n2);
+       Node*rans =lca(root->right, n1,n2);
+       if(lans==NULL&&rans==NULL){
+           return nullptr;
+       }
+       if(!lans){
+           return rans;
+       }
+       if(!rans){
+           return lans;
+       }
+       return root;
+    }
