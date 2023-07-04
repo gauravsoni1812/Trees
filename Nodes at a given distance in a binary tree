@@ -1,0 +1,87 @@
+https://practice.geeksforgeeks.org/problems/nodes-at-given-distance-in-binary-tree/1?page=1&sprint=c6eaf80088f7f43520895b309e50cefe&sortBy=submissions
+
+void parent(Node* root, Node* p, map<Node*, Node*> &m){
+        if(!root){
+            return;
+        }
+        m[root] = p;
+        parent(root -> left, root, m);
+        parent(root -> right, root, m);
+    }
+    
+    struct Node* findNode(Node* root, int target){
+        if(!root){
+            return NULL;
+        }
+        queue<Node*> q;
+        q.push(root);
+        while(!q.empty()){
+            Node* temp = q.front();
+            q.pop();
+            if(temp -> data == target){
+                return temp;
+            }
+            if(temp->left){
+                q.push(temp->left);
+            }
+            if(temp->right){
+                q.push(temp->right);
+            }
+        }
+    }
+    
+    vector <int> KDistanceNodes(Node* root, int target , int k)
+    {
+        // return the sorted vector of all nodes at k dist
+        vector<int> ans;
+        if(!root){
+            return ans;
+        }
+        // storing node and their parent
+        map<Node*, Node*> m;
+        parent(root, NULL, m);
+        
+        Node* t = findNode(root, target);
+        
+        // here in this set we will store the visted element so to ensure that it is not repeated.
+        set<int> st;
+        if(k == 0){
+            ans.push_back(t->data);
+            return ans;
+        }
+        
+        
+        queue<Node*> q;
+        q.push(t);
+        q.push(NULL);
+        
+        
+        while(k>=0 && !q.empty()){
+            Node* temp = q.front();
+            if(temp == NULL){
+                k--;
+                q.pop();
+                q.push(NULL);
+                continue;
+                // this condition ensure that one level of tree from that node is completed.
+            }
+            if(temp->left){
+                q.push(temp->left);
+            }
+            if(temp->right){
+                q.push(temp->right);
+            }
+            if(m[temp]){
+                q.push(m[temp]);
+            }
+            if(st.find(temp->data) == st.end()){
+                st.insert(temp->data);
+                if(k == 0){
+                    ans.push_back(temp->data);
+                }
+            }
+            q.pop();
+        }
+        sort(ans.begin(), ans.end());
+        return ans;
+    }
