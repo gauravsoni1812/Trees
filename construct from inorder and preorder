@@ -1,0 +1,18 @@
+https://practice.geeksforgeeks.org/problems/construct-tree-1/1?page=1&sprint=c6eaf80088f7f43520895b309e50cefe&sortBy=submissions
+
+
+Node* buildTree(int in[], int pre[], int n) {
+    if (n <= 0) {
+        return NULL;
+    }
+    Node* root = new Node(pre[0]);
+    int rootIndex = 0;
+    for (; rootIndex < n; rootIndex++) {
+        if (in[rootIndex] == pre[0]) {
+            break;
+        }
+    }
+    root->left = buildTree(in, pre + 1, rootIndex);
+    root->right = buildTree(in + rootIndex + 1, pre + rootIndex + 1, n - rootIndex - 1);
+    return root;
+}
