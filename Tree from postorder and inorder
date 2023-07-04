@@ -1,0 +1,22 @@
+https://practice.geeksforgeeks.org/problems/tree-from-postorder-and-inorder/1?page=1&sprint=c6eaf80088f7f43520895b309e50cefe&sortBy=submissions
+
+Node *buildTree(int in[], int post[], int n)
+{
+    // Your code here
+    if (n <= 0)
+    {
+        return NULL;
+    }
+    Node *root = new Node(post[n - 1]);
+    int rootIndex = 0;
+    for (; rootIndex < n; rootIndex++)
+    {
+        if (in[rootIndex] == post[n - 1])
+        {
+            break;
+        }
+    }
+    root->left = buildTree(in, post, rootIndex);
+    root->right = buildTree(in + rootIndex + 1, post + rootIndex, n - rootIndex - 1);
+    return root;
+}
