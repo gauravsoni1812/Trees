@@ -1,0 +1,25 @@
+https://practice.geeksforgeeks.org/problems/construct-binary-tree-from-parent-array/1
+
+    Node *createTree(int parent[], int n)
+    {
+        // Your code here
+        unordered_map<int, Node*>ourmap;
+        for(int i=0;i<n;i++){
+            ourmap[i]=new Node(i);
+        }
+        Node *root;
+        for(int i=0;i<n;i++){
+            if(parent[i]==-1){
+                root=ourmap[i];
+            }else{  
+           Node*a=ourmap[parent[i]];
+            Node *temp=ourmap[i];
+            if(!a->left){
+                a->left=temp;
+            }else if(!a->right){
+                a->right=temp;
+            }
+           }
+        }
+        return root;
+    }
