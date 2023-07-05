@@ -1,0 +1,19 @@
+https://practice.geeksforgeeks.org/problems/maximum-difference-between-node-and-its-ancestor/1
+
+int helper(Node*root, int &ans){
+    if(root==NULL){
+        return INT_MAX;
+    }
+    int left=helper(root->left,ans);
+    int right=helper(root->right, ans);
+    ans=max({ans, root->data-left ,root->data-right});
+    return min({root->data, left, right});
+} 
+int maxDiff(Node* root)
+{
+    // Your code here 
+    int ans=INT_MIN;
+     int a=helper(root, ans);
+    return ans;
+    
+}
